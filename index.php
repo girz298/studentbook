@@ -15,7 +15,7 @@ $database = new StudentTableGateway($pdo);
     <title>Student list</title>
 </head>
 <body>
-
+<div class="row" style="height: 40px"></div>
 <div style="width: 100%; height: 20px;"></div>
 <div>
     <div class="col-md-1"></div>
@@ -70,6 +70,14 @@ $database = new StudentTableGateway($pdo);
                 </thead>
                 <tbody>
                 <?php
+
+                var_dump($_POST);
+                if ($database->isPostClear()) {
+                    echo "Заполните ВСЕ формы\n";
+                } else{
+                   $database ->addData();
+                }
+
                 $result = $database->getTable();
                 foreach ($result as $value) {
 
