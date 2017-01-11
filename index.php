@@ -2,7 +2,7 @@
 <html>
 <?php
 require_once('model/database.php');
-include_once ("model/studentTableGateway.php");
+include_once("model/StudentTableGateway.php");
 $database = new StudentTableGateway($pdo);
 ?>
 <head>
@@ -49,7 +49,7 @@ $database = new StudentTableGateway($pdo);
             </div>
             <button class="btn btn-success btn-block" style="margin-top: 15px" type="submit">SEND</button>
         </form>
-        <a href="?action=delete" class="btn btn-danger btn-block">Delete</a>
+        <a href="?action=delete" class="btn btn-danger btn-block">Delete table</a>
     </div>
 
 
@@ -72,6 +72,7 @@ $database = new StudentTableGateway($pdo);
                 <?php
 
                 var_dump($_POST);
+                var_dump($_GET);
                 if ($database->isPostClear()) {
                     echo "Заполните ВСЕ формы\n";
                 } else{
@@ -81,7 +82,13 @@ $database = new StudentTableGateway($pdo);
                 $result = $database->getTable();
                 foreach ($result as $value) {
 
-                    echo '<tr><td>' . $value['name']. '</td></tr>';
+                    echo '<tr><td>' . $value['name']. '</td>';
+                    echo '<td>' . $value['surname']. '</td>';
+                    echo '<td>' . $value['groupa']. '</td>';
+                    echo '<td>' . $value['score']. '</td>';
+                    echo '<td>' . $value['email']. '</td></tr>';
+
+
 
                 }
                 ?>

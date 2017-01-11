@@ -2,7 +2,7 @@
 
 
 $host = 'localhost';
-$db   = 'students';
+$db   = 'proba';
 $user = 'root';
 $pass = '12345';
 $charset = 'utf8';
