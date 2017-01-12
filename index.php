@@ -1,7 +1,20 @@
 <!doctype html>
 <html>
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 require_once('model/database.php');
+require_once ('model/ARStudent/Student.php');
+$novStudent = Student::create(
+        [
+            'name' =>'Evgeniy',
+            'surname' => 'Nikitin',
+            'groupa' => '321',
+            'score' => '400',
+            'email' => 'nikitin@gmail.com'
+        ]);
+Student::update();
+$studentJora = Student::getByName('jora');
 include_once("model/StudentTableGateway.php");
 $database = new StudentTableGateway($pdo);
 ?>
@@ -87,6 +100,7 @@ $database = new StudentTableGateway($pdo);
                     echo '<td>' . $value['groupa']. '</td>';
                     echo '<td>' . $value['score']. '</td>';
                     echo '<td>' . $value['email']. '</td></tr>';
+
 
 
 
