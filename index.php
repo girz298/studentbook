@@ -71,8 +71,7 @@ $database = new StudentTableGateway($pdo);
                 <tbody>
                 <?php
 
-                var_dump($_POST);
-                var_dump($_GET);
+
                 if ($database->isPostClear()) {
                     echo "Заполните ВСЕ формы\n";
                 } else{
@@ -80,6 +79,7 @@ $database = new StudentTableGateway($pdo);
                 }
 
                 $result = $database->getTable();
+
                 foreach ($result as $value) {
 
                     echo '<tr><td>' . $value['name']. '</td>';

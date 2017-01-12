@@ -13,7 +13,7 @@ class StudentTableGateway{
     }
 
     public function isPostClear(){
-        if ($_POST['action'] == "delete") $this->removeTable();
+        if ($_GET['action'] == "delete") $this->removeTable();
         foreach ($_POST as $key => $value){
             if ($value === "") return true;
         }
@@ -31,21 +31,20 @@ class StudentTableGateway{
     }
 
     public function getTable(){
-         $result = $this->pdo-> query("SELECT *from students") -> fetchAll();
+         $result = $this->pdo-> query("SELECT * from students") -> fetchAll();
         return $result;
     }
 
-    public function checkData(){
-        if (count(preg_match("/^[а-яёЁА-я]{3,10}&/", $_POST['name']))>0) {return true;}
-        else return false;
-    }
+//    public function checkData(){
+//        if (count(preg_match("/^[а-яёЁА-я]{3,10}&/", $_POST['name']))>0) {return true;}
+//        else return false;
+//    }
 
     public function addStudent(Student $student){
     }
 
     private function removeTable(){
-        $this->pdo->query("DELETE from STUDENTS");
-
+        $this->pdo->query("DELETE from students");
     }
 
 
