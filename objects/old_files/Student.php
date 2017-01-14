@@ -1,6 +1,6 @@
 <?php
 
-class Student{
+class Student_OLD{
 
     public $name;
     public $surName;

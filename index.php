@@ -1,23 +1,8 @@
+<?php
+    require_once ('main.php');
+?>
 <!doctype html>
 <html>
-<?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-require_once('model/database.php');
-require_once ('model/ARStudent/Student.php');
-$novStudent = Student::create(
-        [
-            'name' =>'Evgeniy',
-            'surname' => 'Nikitin',
-            'groupa' => '321',
-            'score' => '400',
-            'email' => 'nikitin@gmail.com'
-        ]);
-Student::update();
-$studentJora = Student::getByName('jora');
-include_once("model/StudentTableGateway.php");
-$database = new StudentTableGateway($pdo);
-?>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -83,28 +68,13 @@ $database = new StudentTableGateway($pdo);
                 </thead>
                 <tbody>
                 <?php
-
-
-                if ($database->isPostClear()) {
-                    echo "Заполните ВСЕ формы\n";
-                } else{
-                   $database ->addData();
-                }
-
-                $result = $database->getTable();
-
-                foreach ($result as $value) {
-
-                    echo '<tr><td>' . $value['name']. '</td>';
-                    echo '<td>' . $value['surname']. '</td>';
-                    echo '<td>' . $value['groupa']. '</td>';
-                    echo '<td>' . $value['score']. '</td>';
-                    echo '<td>' . $value['email']. '</td></tr>';
-
-
-
-
-                }
+                    foreach ($students as $student) {
+                        echo '<tr><td>' . $student->getName() . '</td>';
+                        echo '<td>' . $student->getSurname() . '</td>';
+                        echo '<td>' . $student->getGroup() . '</td>';
+                        echo '<td>' . $student->getScore() . '</td>';
+                        echo '<td>' . $student->getEmail() . '</td></tr>';
+                    }
                 ?>
                 </tbody>
             </table>
