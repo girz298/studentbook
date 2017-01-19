@@ -3,7 +3,7 @@
 class Database
 {
     private static $host = 'localhost';
-    private static $db   = 'proba';
+    private static $dbname   = 'student_list';
     private static $user = 'root';
     private static $pass = 'root';
     private static $charset = 'utf8';
@@ -16,7 +16,7 @@ class Database
 
     public static function getPDO()
     {
-        $dsn = 'mysql:host=' . self::$host . ';dbname='. self::$db . ';charset=' . self::$charset;
+        $dsn = 'mysql:host=' . self::$host . ';dbname='. self::$dbname . ';charset=' . self::$charset;
         if (self::$pdo instanceof PDO) {
             return self::$pdo;
         }

@@ -9,9 +9,9 @@ class Student extends ActiveRecordBase
 
     public $fields = [
         'id' => '', // Actualy the first column should be named 'id' and auto_inc !!!
-        'name' => '',
+        'first_name' => '',
         'surname' => '',
-        'groupa' => '',
+        'group_id' => '',
         'score' => '',
         'email' => '',
     ];
@@ -21,7 +21,7 @@ class Student extends ActiveRecordBase
     //
     public function getName()
     {
-        return $this->fields['name'];
+        return $this->fields['first_name'];
     }
 
     public function getSurname()
@@ -31,7 +31,7 @@ class Student extends ActiveRecordBase
 
     public function getGroup()
     {
-        return $this->fields['groupa'];
+        return $this->fields['group_id'];
     }
 
     public function getScore()
@@ -49,7 +49,7 @@ class Student extends ActiveRecordBase
     //
     public function setName($name)
     {
-        $this->fields['name'] = $name;
+        $this->fields['first_name'] = $name;
         return $this;
     }
 
@@ -67,7 +67,7 @@ class Student extends ActiveRecordBase
 
     public function setGroup($group)
     {
-        $this->fields['groupa'] = $group;
+        $this->fields['group_id'] = $group;
         return $this;
     }
 
@@ -87,11 +87,25 @@ class Student extends ActiveRecordBase
 
     public static function getFirstByName($name)
     {
-        return self::get('name', $name);
+        return self::get('first_name', $name);
     }
 
     public static function getFirstByScore($score)
     {
         return self::get('score', $score);
+    }
+
+    public static function install()
+    {
+        $query ='CREATE TABLE ' . self::getTableName() . '(
+            id INT NOT NULL AUTO_INCREMENT,
+            first_name  VARCHAR(50),
+            surname     VARCHAR(50),
+            score       INT(4),
+            group_id    INT(6),
+            email       VARCHAR(50),
+            PRIMARY KEY (ID)
+        )';
+        return self::createTable($query);
     }
 }

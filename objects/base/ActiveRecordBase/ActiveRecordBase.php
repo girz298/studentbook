@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: doctor
- * Date: 13.01.17
- * Time: 0:50
- */
+
+
 class ActiveRecordBase
 {
     public $id;
@@ -38,7 +34,7 @@ class ActiveRecordBase
             return self::get('id', $pdo->lastInsertId());
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage();
-            return 0;
+            return null;
         }
     }
 
@@ -62,10 +58,10 @@ class ActiveRecordBase
         $query = 'DELETE from ' . static::getTableName() . ' WHERE ' . 'id=' . "'" . $this->id . "'";
         try {
             $pdo->query($query);
-            return 1;
+            return true;
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage();
-            return 0;
+            return null;
         }
     }
 
@@ -99,10 +95,49 @@ class ActiveRecordBase
         $query .= ' WHERE id=' . "'" . $this->id . "'";
         try {
             $pdo->query($query);
-            return 1;
+            return $this;
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage();
-            return 0;
+            return null;
         }
+    }
+
+    protected static function createTable($query)
+    {
+        try {
+            Database::getPDO()->query($query);
+            echo "\n success \n";
+            return true;
+        } catch (PDOException $PDOException) {
+            echo $PDOException->getMessage() . "\n";
+            return false;
+        }
+    }
+
+    public static function dropTable()
+    {
+        try {
+            Database::getPDO()->query('DELETE FROM ' . static::getTableName());
+            return true;
+        } catch (PDOException $PDOException) {
+            echo $PDOException->getMessage() . "\n";
+            return false;
+        }
+    }
+
+    public function removeByID($id)
+    {
+        try {
+            Database::getPDO()->query('DELETE FROM ' . static::getTableName() . ' WHERE id=' . $this->id);
+            return true;
+        } catch (PDOException $PDOException) {
+            echo $PDOException->getMessage() . "\n";
+            return false;
+        }
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }
