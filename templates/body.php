@@ -25,7 +25,7 @@
                 <th style="text-align: center">#</th>
                 <th style="text-align: center">Name</th>
                 <th style="text-align: center">Surname</th>
-                <th style="text-align: center">Groupa</th>
+                <th style="text-align: center">Group</th>
                 <th style="text-align: center">Score</th>
                 <th style="text-align: center">Email</th>
                 <th style="text-align: center">Actions</th>
@@ -52,7 +52,6 @@
                     </td>
                 </tr>
             <?php endforeach;?>
-
         </table>
     </div>
     <div class="col-md-3"></div>

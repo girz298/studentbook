@@ -49,27 +49,40 @@ function testing()
     echo $studentJora->getName();
 }
 
-if (isset($_POST['action']) && $_POST['action'] === 'add') {
-    if (count($_POST) === 6 && each_true($_POST, function ($value) {
-            return $value !== '' ? true : false;
-        })
-    ) {
-        $student = Student::create(
-            [
-                'first_name' => $_POST['name'],
-                'surname' => $_POST['surname'],
-                'group_id' => $_POST['group'],
-                'score' => $_POST['score'],
-                'email' => $_POST['email']
-            ]
-        );
-        if ($student !== 0) {
-            header('Location: /');
-            die();
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+} else {
+    $action = $_GET['action'];
+}
+
+
+switch ($action) {
+    case 'add':
+        if (count($_POST) === 6 && each_true($_POST, function ($arr, $key, $value) {
+                return $value !== '' ? true : false;
+            })
+        ) {
+            $student = Student::create(
+                [
+                    'first_name' => $_POST['name'],
+                    'surname' => $_POST['surname'],
+                    'group_id' => $_POST['group'],
+                    'score' => $_POST['score'],
+                    'email' => $_POST['email']
+                ]
+            );
+            if ($student !== 0) {
+                header('Location: /');
+                die();
+            }
+        } else {
+            echo 'Bad Request!';
         }
-    } else {
-        echo 'Bad Request!';
-    }
+        break;
+    case 'remove':
+        if (isset($_GET['id'])) {
+            Student::getById($_GET['id'])->remove();
+        }
 }
 
 $students = Student::getAll();

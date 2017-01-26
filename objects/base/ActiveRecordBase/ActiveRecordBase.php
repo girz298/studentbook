@@ -46,7 +46,7 @@ class ActiveRecordBase
             $field . '=' . "'" . $value . "'";
         try {
             $result = $pdo->query($query)->fetch();
-            return new $className($result);
+            return $result ? new $className($result) : false;
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage();
             return null;
@@ -118,17 +118,6 @@ class ActiveRecordBase
     {
         try {
             Database::getPDO()->query('DELETE FROM ' . static::getTableName());
-            return true;
-        } catch (PDOException $PDOException) {
-            echo $PDOException->getMessage() . "\n";
-            return false;
-        }
-    }
-
-    public function removeByID($id)
-    {
-        try {
-            Database::getPDO()->query('DELETE FROM ' . static::getTableName() . ' WHERE id=' . $this->id);
             return true;
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage() . "\n";
